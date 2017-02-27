@@ -3,16 +3,15 @@
  * This is the spec file that Jasmine will read and contains
  * all of the tests that will be run against your application.
  */
-
 /* We're placing all of our tests within the $() function,
  * since some of these tests may require DOM elements. We want
  * to ensure they don't run until the DOM is ready.
  */
 $(function() {
     /* This is our first test suite - a test suite just contains
-    * a related set of tests. This suite is all about the RSS
-    * feeds definitions, the allFeeds variable in our application.
-    */
+     * a related set of tests. This suite is all about the RSS
+     * feeds definitions, the allFeeds variable in our application.
+     */
     describe('RSS Feeds', function() {
         /* This is our first test - it tests to make sure that the
          * allFeeds variable has been defined and that it is not
@@ -31,38 +30,35 @@ $(function() {
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
-         it('have a url which is not empty',function()
-         {
-            for(var i=0;i<allFeeds.length;i++)
-            {
-               // expect(allFeeds[i]).toContain("url"); //Checking for the feed to contain a URL
+        it('have a url which is not empty', function() {
+            for (var i = 0; i < allFeeds.length; i++) {
+                // expect(allFeeds[i]).toContain("url"); //Checking for the feed to contain a URL
                 expect(allFeeds[i].url).toBeDefined();
-             //   expect(allFeeds[i].url).not.toEqual(''); //Checking for the URL to be non empty
-              expect(allFeeds[i].url).not.toEqual(''); //Checking for the URL to be non empty
+                //   expect(allFeeds[i].url).not.toEqual(''); //Checking for the URL to be non empty
+                //  expect(allFeeds[i].url).not.toEqual(''); //Checking for the URL to be non empty
+                expect(allFeeds[i].url.length).not.toEqual(0);
 
             }
-         });
+        });
 
 
         /* TODO: Write a test that loops through each feed
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
-         it('have name which is not empty',function()
-         {
-            for(var i=0;i<allFeeds.length;i++)
-            {
-              //  expect(allFeeds[i]).toContain("name");  //Checking for the feed to contain a name
+        it('have name which is not empty', function() {
+            for (var i = 0; i < allFeeds.length; i++) {
+                //  expect(allFeeds[i]).toContain("name");  //Checking for the feed to contain a name
                 expect(allFeeds[i].name).toBeDefined();
-              expect(allFeeds[i].name).not.toEqual(''); //Checking for the name to be non empty
+                expect(allFeeds[i].name).not.toEqual(''); //Checking for the name to be non empty
 
             }
-         });
+        });
     });
 
 
     /* TODO: Write a new test suite named "The menu" */
-    describe('The menu',function(){
+    describe('The menu', function() {
 
 
 
@@ -71,30 +67,27 @@ $(function() {
          * the CSS to determine how we're performing the
          * hiding/showing of the menu element.
          */
-         it('class is hidden',function()
-         {
+        it('class is hidden', function() {
             expect($('body').hasClass('menu-hidden')).toBeTruthy();
 
 
-         });
+        });
 
-         /* TODO: Write a test that ensures the menu changes
-          * visibility when the menu icon is clicked. This test
-          * should have two expectations: does the menu display when
-          * clicked and does it hide when clicked again.
-          */
-          it('changes visibility on click',function()
-          {
+        /* TODO: Write a test that ensures the menu changes
+         * visibility when the menu icon is clicked. This test
+         * should have two expectations: does the menu display when
+         * clicked and does it hide when clicked again.
+         */
+        it('changes visibility on click', function() {
 
             $('a.menu-icon-link').click();
             expect($('body').hasClass('menu-hidden')).not.toBeTruthy();
             $('a.menu-icon-link').click();
             expect($('body').hasClass('menu-hidden')).toBeTruthy();
         });
-});
+    });
     /* TODO: Write a new test suite named "Initial Entries" */
-    describe('Initial Entries',function()
-    {
+    describe('Initial Entries', function() {
 
 
 
@@ -106,24 +99,27 @@ $(function() {
          */
 
 
-  beforeEach(function(done){
+        beforeEach(function(done) {
 
-loadFeed(0,function()
-{
-    done();
-});
-  });
+            loadFeed(0, function() {
+                done();
+            });
+        });
 
-//  var element=$('.entry');
-  //($('.feed')).toContain(element);
-var lengthOfElement=$('.feed .entry').length;
-expect(lengthOfElement).toBeGreaterThan(0);
-
-
+        //  var element=$('.entry');
+        //($('.feed')).toContain(element);
+        it('contain at least a single .entry element within the .feed container', function() {
+            var lengthOfElement = $('.feed .entry').length;
+            expect(lengthOfElement).toBeGreaterThan(0);
 
 
- });
+
+        });
+
+
+    });
     /* TODO: Write a new test suite named "New Feed Selection"
+
 
         /* TODO: Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
@@ -136,5 +132,33 @@ expect(lengthOfElement).toBeGreaterThan(0);
 }
          */
 
-           
+    describe('New Feed Selection', function() {
+
+        beforeEach(function(done) {
+
+            loadFeed(0, function() {
+                done();
+            });
+        });
+
+        it('contains a new feed when a new feed is loaded', function() {
+            for (var i = 0; i < allFeeds.length; i++) {
+                for (var j = 0; j < i; j++) {
+
+                    expect(allFeeds[j]).not.toContain(allFeeds[i]);
+                }
+                //expect(allFeeds[i - 1]).not.toContain(allFeeds[i]);
+
+            }
+
+
+
+        });
+
+
+
+
+    });
+
+
 }());
