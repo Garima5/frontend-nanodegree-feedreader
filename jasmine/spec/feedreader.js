@@ -108,14 +108,14 @@ $(function() {
 
         //  var element=$('.entry');
         //($('.feed')).toContain(element);
-        it('contain at least a single .entry element within the .feed container', function() {
+        it('contain at least a single .entry element within the .feed container', function(done) {
             var lengthOfElement = $('.feed .entry').length;
             expect(lengthOfElement).toBeGreaterThan(0);
 
+done();
 
 
         });
-
 
     });
     /* TODO: Write a new test suite named "New Feed Selection"
@@ -141,8 +141,8 @@ $(function() {
             });
         });
 
-        it('contains a new feed when a new feed is loaded', function() {
-            for (var i = 0; i < allFeeds.length; i++) {
+        it('contains a new feed when a new feed is loaded', function(done) {
+            for (var i = 1; i < allFeeds.length; i++) {
                 for (var j = 0; j < i; j++) {
 
                     expect(allFeeds[j]).not.toContain(allFeeds[i]);
@@ -151,7 +151,7 @@ $(function() {
 
             }
 
-
+done();
 
         });
 
